@@ -7,7 +7,7 @@ import type {
   TypedEventFilter,
   TypedEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../../common.js";
 
 export interface BInterface extends Interface {}
 

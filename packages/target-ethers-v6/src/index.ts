@@ -177,14 +177,14 @@ function createRootIndexContent(rootIndexes: FileDescription[], paths: string[])
   const rootReexports = uniqBy(Object.values(contracts), (c) => c.name).flatMap((c) => {
     const path = c.path.length === 0 ? c.name : `${c.path.join('/')}/${c.name}`
     return [
-      `export type { ${c.name} } from './${path}';`,
-      `export { ${c.name}${FACTORY_POSTFIX} } from './factories/${path}${FACTORY_POSTFIX}';`,
+      `export type { ${c.name} } from './${path}.js';`,
+      `export { ${c.name}${FACTORY_POSTFIX} } from './factories/${path}${FACTORY_POSTFIX}.js';`,
     ]
   })
 
   const rootIndexContent = new Set([
-    ...rootIndexes[0].contents.split('\n'),
-    ...rootIndexes[1].contents.split('\n'),
+    ...rootIndexes[0].contents.split('\n').map(s => s.replace("';", ".js';")),
+    ...rootIndexes[1].contents.split('\n').map(s => s.replace("';", "/index.js';")),
     ...rootReexports,
   ])
 

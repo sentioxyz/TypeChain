@@ -3,7 +3,11 @@
 /* eslint-disable */
 import type { BaseContract, Interface } from "ethers";
 import type { ContractRunner } from "ethers/providers";
-import type { TypedEventFilter, TypedEvent, PromiseOrValue } from "../common";
+import type {
+  TypedEventFilter,
+  TypedEvent,
+  PromiseOrValue,
+} from "../common.js";
 
 export interface LibraryConsumerInterface extends Interface {}
 

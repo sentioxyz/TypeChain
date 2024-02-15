@@ -3,12 +3,16 @@
 /* eslint-disable */
 import type { BaseContract, BigNumberish, Interface } from "ethers";
 import type { ContractRunner } from "ethers/providers";
-import type { TypedEventFilter, TypedEvent, PromiseOrValue } from "../common";
+import type {
+  TypedEventFilter,
+  TypedEvent,
+  PromiseOrValue,
+} from "../common.js";
 
 export declare namespace Issue552_Observer {
   export type ObservationStruct = {
-    val: PromiseOrValue<BigNumberish>;
-    blockTimestamp: PromiseOrValue<BigNumberish>;
+    val: BigNumberish;
+    blockTimestamp: BigNumberish;
   };
 
   export type ObservationStructOutput = [bigint, bigint] & {
@@ -20,15 +24,15 @@ export declare namespace Issue552_Observer {
 export declare namespace Issue552_Reproduction {
   export type ObservationParamsStruct = {
     observations: Issue552_Observer.ObservationStruct[];
-    index: PromiseOrValue<BigNumberish>;
+    index: BigNumberish;
   };
 
   export type ObservationParamsStructOutput = [
     Issue552_Observer.ObservationStructOutput[],
-    number
+    bigint
   ] & {
     observations: Issue552_Observer.ObservationStructOutput[];
-    index: number;
+    index: bigint;
   };
 }
 

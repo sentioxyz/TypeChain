@@ -8,13 +8,14 @@ import type {
   LogDescription,
 } from "ethers";
 import type { ContractRunner } from "ethers/providers";
-import type { TypedEventFilter, TypedEvent, PromiseOrValue } from "../common";
+import type {
+  TypedEventFilter,
+  TypedEvent,
+  PromiseOrValue,
+} from "../common.js";
 
 export declare namespace Events {
-  export type EventDataStruct = {
-    index: PromiseOrValue<BigNumberish>;
-    name: PromiseOrValue<string>;
-  };
+  export type EventDataStruct = { index: BigNumberish; name: string };
 
   export type EventDataStructOutput = [bigint, string] & {
     index: bigint;

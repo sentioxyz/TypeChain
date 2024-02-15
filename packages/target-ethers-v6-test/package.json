@@ -1,7 +1,7 @@
 {
   "name": "@sentio/ethers-v6-test",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "scripts": {
     "format": "prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --check \"./**/*.ts\"",
@@ -20,6 +20,6 @@
     "typechain": "workspace:^8.1.1"
   },
   "dependencies": {
-    "ethers": "^6.0.0-beta"
+    "ethers": "^6.0.0"
   }
 }

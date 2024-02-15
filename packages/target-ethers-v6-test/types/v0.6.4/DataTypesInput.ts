@@ -3,30 +3,28 @@
 /* eslint-disable */
 import type { BaseContract, BigNumberish, Interface } from "ethers";
 import type { ContractRunner } from "ethers/providers";
-import type { TypedEventFilter, TypedEvent, PromiseOrValue } from "../common";
+import type {
+  TypedEventFilter,
+  TypedEvent,
+  PromiseOrValue,
+} from "../common.js";
 
 export declare namespace StructsLib1 {
-  export type InfoStruct = {
-    a: PromiseOrValue<BigNumberish>;
-    b: PromiseOrValue<BigNumberish>;
-  };
+  export type InfoStruct = { a: BigNumberish; b: BigNumberish };
 
   export type InfoStructOutput = [bigint, bigint] & { a: bigint; b: bigint };
 }
 
 export declare namespace StructsLib2 {
-  export type InfoStruct = {
-    a: PromiseOrValue<string>;
-    b: PromiseOrValue<string>;
-  };
+  export type InfoStruct = { a: string; b: string };
 
   export type InfoStructOutput = [string, string] & { a: string; b: string };
 }
 
 export declare namespace DataTypesInput {
   export type Struct1Struct = {
-    uint256_0: PromiseOrValue<BigNumberish>;
-    uint256_1: PromiseOrValue<BigNumberish>;
+    uint256_0: BigNumberish;
+    uint256_1: BigNumberish;
   };
 
   export type Struct1StructOutput = [bigint, bigint] & {
@@ -35,7 +33,7 @@ export declare namespace DataTypesInput {
   };
 
   export type Struct2Struct = {
-    input1: PromiseOrValue<BigNumberish>;
+    input1: BigNumberish;
     input2: DataTypesInput.Struct1Struct;
   };
 
@@ -44,7 +42,7 @@ export declare namespace DataTypesInput {
     DataTypesInput.Struct1StructOutput
   ] & { input1: bigint; input2: DataTypesInput.Struct1StructOutput };
 
-  export type Struct3Struct = { input1: PromiseOrValue<BigNumberish>[] };
+  export type Struct3Struct = { input1: BigNumberish[] };
 
   export type Struct3StructOutput = [bigint[]] & { input1: bigint[] };
 }

@@ -45,7 +45,7 @@ export function generateEventTypeExport(event: EventDeclaration, includeArgTypes
 
   return `
     export interface ${identifier}Object ${objectOutput};
-    export type ${identifier} = TypedEvent<${arrayOutput}, ${identifier}Object> & LogDescription;
+    export type ${identifier} = TypedEvent<${arrayOutput}, ${identifier}Object>;
 
     export type ${identifier}Filter = TypedEventFilter<${identifier}>;
   `

@@ -109,8 +109,8 @@ const source = `
 // };
 
   const commonPath = contract.path.length
-    ? `${new Array(contract.path.length).fill('..').join('/')}/common`
-    : './common'
+    ? `${new Array(contract.path.length).fill('..').join('/')}/common.js`
+    : './common.js'
 
   const imports =
     createImportsForUsedIdentifiers(
@@ -164,66 +164,68 @@ export function codegenContractFactory(
   const constructorArgNames = constructorArgNamesWithoutOverrides
     ? `${constructorArgNamesWithoutOverrides}, overrides || {}`
     : 'overrides || {}'
-  if (!bytecode) return codegenAbstractContractFactory(contract, abi)
+  // if (!bytecode)
+
+  return codegenAbstractContractFactory(contract, abi)
 
   // tsc with noUnusedLocals would complain about unused imports
 
-  const { body, header } = codegenCommonContractFactory(contract, abi)
-
-  const source = `
-  ${header}
-
-  const _bytecode = "${bytecode.bytecode}";
-
-  ${generateFactoryConstructorParamsAlias(contract, bytecode)}
-
-  export class ${contract.name}${FACTORY_POSTFIX} extends ContractFactory {
-    ${generateFactoryConstructor(codegenConfig, contract, bytecode)}
-    override deploy(${constructorArgs}): Promise<${contract.name}> {
-      return super.deploy(${constructorArgNames}) as Promise<${contract.name}>;
-    }
-    override getDeployTransaction(${constructorArgs}): TransactionRequest {
-      return super.getDeployTransaction(${constructorArgNames});
-    };
-    override attach(address: string): ${contract.name} {
-      return super.attach(address) as ${contract.name};
-    }
-    override connect(signer: Signer): ${contract.name}${FACTORY_POSTFIX} {
-      return super.connect(signer) as ${contract.name}${FACTORY_POSTFIX};
-    }
-    ${codegenConfig.discriminateTypes ? `static readonly contractName: '${contract.name}';\n` : ``}
-    ${codegenConfig.discriminateTypes ? `public readonly contractName: '${contract.name}';\n` : ``}
-    static readonly bytecode = _bytecode;
-    ${body}
-  }
-
-  ${generateLibraryAddressesInterface(contract, bytecode)}
-  `
-
-  const commonPath = `${new Array(contract.path.length + 1).fill('..').join('/')}/common`
-
-  const imports =
-    createImportsForUsedIdentifiers(
-      {
-        ethers: [
-          'Signer',
-          // 'utils',
-          'Contract',
-          'ContractFactory',
-          'PayableOverrides',
-          'BytesLike',
-          'BigNumberish',
-          'Overrides',
-            'Interface'
-        ],
-        'type @ethersproject/providers': ['Provider', 'TransactionRequest'],
-      },
-      source,
-    ) +
-    '\n' +
-    createImportTypeDeclaration(['PromiseOrValue'], commonPath)
-
-  return imports + source
+  // const { body, header } = codegenCommonContractFactory(contract, abi)
+  //
+  // const source = `
+  // ${header}
+  //
+  // const _bytecode = "${bytecode.bytecode}";
+  //
+  // ${generateFactoryConstructorParamsAlias(contract, bytecode)}
+  //
+  // export class ${contract.name}${FACTORY_POSTFIX} extends ContractFactory {
+  //   ${generateFactoryConstructor(codegenConfig, contract, bytecode)}
+  //   override deploy(${constructorArgs}): Promise<${contract.name}> {
+  //     return super.deploy(${constructorArgNames}) as Promise<${contract.name}>;
+  //   }
+  //   override getDeployTransaction(${constructorArgs}): TransactionRequest {
+  //     return super.getDeployTransaction(${constructorArgNames});
+  //   };
+  //   override attach(address: string): ${contract.name} {
+  //     return super.attach(address) as ${contract.name};
+  //   }
+  //   override connect(signer: Signer): ${contract.name}${FACTORY_POSTFIX} {
+  //     return super.connect(signer) as ${contract.name}${FACTORY_POSTFIX};
+  //   }
+  //   ${codegenConfig.discriminateTypes ? `static readonly contractName: '${contract.name}';\n` : ``}
+  //   ${codegenConfig.discriminateTypes ? `public readonly contractName: '${contract.name}';\n` : ``}
+  //   static readonly bytecode = _bytecode;
+  //   ${body}
+  // }
+  //
+  // ${generateLibraryAddressesInterface(contract, bytecode)}
+  // `
+  //
+  // const commonPath = `${new Array(contract.path.length + 1).fill('..').join('/')}/common`
+  //
+  // const imports =
+  //   createImportsForUsedIdentifiers(
+  //     {
+  //       ethers: [
+  //         'Signer',
+  //         // 'utils',
+  //         'Contract',
+  //         'ContractFactory',
+  //         'PayableOverrides',
+  //         'BytesLike',
+  //         'BigNumberish',
+  //         'Overrides',
+  //           'Interface'
+  //       ],
+  //       'type @ethersproject/providers': ['Provider', 'TransactionRequest'],
+  //     },
+  //     source,
+  //   ) +
+  //   '\n' +
+  //   createImportTypeDeclaration(['PromiseOrValue'], commonPath)
+  //
+  // return imports + source
 }
 
 export function codegenAbstractContractFactory(contract: Contract, abi: any): string {
@@ -253,7 +255,7 @@ function codegenCommonContractFactory(contract: Contract, abi: any): { header: s
   )
 
   const header = `
-  import type { ${[...imports.values()].join(', ')} } from "${contractTypesImportPath}";
+  import type { ${[...imports.values()].join(', ')} } from "${contractTypesImportPath}.js";
 
   const _abi = ${JSON.stringify(abi, null, 2)} as const;
   `.trim()

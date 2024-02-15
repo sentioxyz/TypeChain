@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, Provider } from "ethers";
+import { Contract, Signer, Provider, Interface } from "ethers";
 import type {
   DataTypesInput,
   DataTypesInputInterface,

@@ -12,13 +12,10 @@ import type {
   TypedEventFilter,
   TypedEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../../common.js";
 
 export declare namespace KingOfTheHill {
-  export type BidStruct = {
-    bidder: PromiseOrValue<string>;
-    value: PromiseOrValue<BigNumberish>;
-  };
+  export type BidStruct = { bidder: string; value: BigNumberish };
 
   export type BidStructOutput = [string, bigint] & {
     bidder: string;
